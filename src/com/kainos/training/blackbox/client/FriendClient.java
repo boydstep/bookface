@@ -36,6 +36,29 @@ public class FriendClient {
 		return response;
 	}
 	
+	public Response printListOfFriends()
+	{
+		List<Person> actualPeople=getFriendsList();
+		for(int i=0;i<actualPeople.size();i++)
+		{
+			System.out.println(i+"\t"+actualPeople.get(i).getName());
+		}
+		return Response.ok().build();
+	}
+
+	public Response deleteFriend(Person p)
+	{
+		String name=p.getName();
+		List<Person> actualPeople=getFriendsList();
+		for(int i=0;i<actualPeople.size();i++)
+		{
+			if(actualPeople.get(i).getName().equals(name)){
+				return target.path("" + i).request().delete();
+			}
+		}
+		return Response.status(Status.NOT_FOUND).build();
+	}
+	
 	public List<Person> getFriendsList() {	
 		Response response = target.request().get();
 		return response.readEntity(new GenericType<List<Person>>(){});	
