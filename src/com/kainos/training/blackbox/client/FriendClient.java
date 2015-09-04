@@ -1,0 +1,32 @@
+package com.kainos.training.blackbox.client;
+
+import java.util.List;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.kainos.training.blackboxinterface.model.person.Person;
+
+public class FriendClient {
+
+	private WebTarget target;
+
+	public FriendClient() {
+		target = ClientBuilder.newClient().target("http://localhost:8910")
+				.path("person");
+	}
+	
+	public Response addFriend(Person p) {
+		Response response = target.request().post(Entity.entity(p, MediaType.APPLICATION_JSON));
+		return response;
+	}
+	
+	public List<Person> getFriendsList() {	
+		Response response = target.request().get();
+		return response.readEntity(new GenericType<List<Person>>(){});	
+	}
+}
