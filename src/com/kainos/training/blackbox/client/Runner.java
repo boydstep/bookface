@@ -1,6 +1,6 @@
 package com.kainos.training.blackbox.client;
 
-import com.kainos.training.blackboxinterface.model.person.Person;
+import com.kainos.training.blackbox_interface.model.Person;
 
 public class Runner {
 
